@@ -1,0 +1,43 @@
+<h1 id="visual-analytics-module-10--time-series-and-visualization">Visual Analytics Module 10 -Time Series and Visualization</h1>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readr)
+<span class="kw">library</span>(ggplot2)
+hotdogs &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;http://datasets.flowingdata.com/hot-dog-contest-winners.csv&quot;</span>)</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   Year = col_double(),
+##   Winner = col_character(),
+##   `Dogs eaten` = col_double(),
+##   Country = col_character(),
+##   `New record` = col_double()
+## )</code></pre>
+<p>This weeks assignment is more practice with r plots and ggplot2, this time including time series plots. Below, I have created:</p>
+<p>Regular r barplot for Nathan's Hot Dog Eating Contest:</p>
+<pre class="sourceCode r"><code class="sourceCode r">colors &lt;-<span class="st"> </span><span class="kw">ifelse</span>(hotdogs$<span class="st">`</span><span class="dt">New record</span><span class="st">`</span> ==<span class="st"> </span><span class="dv">1</span>, <span class="st">&quot;darkred&quot;</span>, <span class="st">&quot;salmon&quot;</span>)
+<span class="kw">barplot</span>(hotdogs$<span class="st">`</span><span class="dt">Dogs eaten</span><span class="st">`</span>, <span class="dt">names.arg =</span> hotdogs$Year, <span class="dt">col=</span>colors, <span class="dt">border=</span><span class="ot">NA</span>,
+<span class="dt">main =</span> <span class="st">&quot;Nathan&#39;s Hot Dog Eating Contest Results, 1980-2010&quot;</span>,  <span class="dt">xlab=</span><span class="st">&quot;Year&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Hot dogs and buns (HDBs) eaten&quot;</span>,)</code></pre>
+<div class="figure">
+<img src="VA-Module-10_files/figure-markdown_github/unnamed-chunk-2-1.png" />
+</div>
+<p>This graph shows the number of hotdogs eaten per year for Nathan's Hot Dog Contest. New records are denoted with a darker tone. This is a simple yet effective graph and the use of a barchart is a good idea when dealing with discrete data like number of hot dogs eaten and years.</p>
+<p>ggplot2 time series line plot for Nathan's Hot Dog Eating Contest:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(hotdogs, <span class="kw">aes</span>(<span class="dt">x =</span> hotdogs$Year, <span class="dt">y =</span> hotdogs$<span class="st">`</span><span class="dt">Dogs eaten</span><span class="st">`</span>)) +<span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">color =</span> <span class="st">&quot;salmon&quot;</span>, <span class="dt">size=</span><span class="dv">2</span> ) +<span class="kw">geom_smooth</span>() +<span class="st"> </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Nathan&#39;s Hot Dog Eating Contest&quot;</span>, <span class="dt">subtitle =</span> <span class="st">&quot;1980-2010&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Hot Dogs and Buns Eaten&quot;</span>) +<span class="st"> </span><span class="kw">theme_minimal</span>()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<div class="figure">
+<img src="VA-Module-10_files/figure-markdown_github/unnamed-chunk-3-1.png" />
+</div>
+<p>This plot is less specific with displaying the specific numbers of hot dogs eaten, however it is better at showing possible trends and the curvature of the graph and whether it is skewed or abnormal.</p>
+<p>Time Series Line Plot for r dataset 'economics':</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+<span class="kw">library</span>(scales)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;scales&#39;
+
+## The following object is masked from &#39;package:readr&#39;:
+## 
+##     col_factor</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(economics, <span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> psavert)) +<span class="kw">geom_line</span>(<span class="dt">color =</span> <span class="st">&quot;salmon&quot;</span>, <span class="dt">size=</span><span class="dv">1</span> ) +<span class="st"> </span><span class="kw">geom_smooth</span>()  +<span class="st"> </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Personal Savings Rate&quot;</span>, <span class="dt">subtitle =</span> <span class="st">&quot;1967 - 2015&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Personal Savings Rate&quot;</span>) +<span class="kw">theme_minimal</span>()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<div class="figure">
+<img src="VA-Module-10_files/figure-markdown_github/unnamed-chunk-4-1.png" />
+</div>
+<p>This last graph shows the personal savings rate for the years 1967-2015 using the default r 'economics' dataset. I believe this is a very neat, concise and effective graph that is useful for seeing trends and the curve of the graph.</p>
